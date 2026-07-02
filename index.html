@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vita Content — Produção audiovisual que gera resultado</title>
+<meta name="description" content="Institucionais, publicidade, clipes, eventos e edições de alta performance para marcas e negócios que querem crescer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#top" class="logo">
+    <span class="logo-mark"><svg width="11" height="13" viewBox="0 0 11 13"><path d="M0 0L11 6.5L0 13Z" fill="#fff"></path></svg></span>
+    <span class="logo-text">vita<span class="logo-text-light">content</span><span class="logo-dot">.</span></span>
+  </a>
+  <div class="nav-pill">
+    <a href="#top" class="nav-link nav-link--active">Início</a>
+    <a href="#portfolio" class="nav-link">Portfólio</a>
+    <a href="#contato" class="nav-link">Contato</a>
+  </div>
+  <div class="nav-actions">
+    <a href="#contato" class="btn btn--ghost">Instagram</a>
+    <a href="#contato" class="btn btn--dark">Falar no WhatsApp<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 5l7 7-7 7"></path></svg></a>
+  </div>
+</nav>
+
+<section id="top" class="hero">
+  <div class="hero-copy">
+    <a href="#portfolio" class="badge">
+      <span class="badge-dot"></span>Produtora audiovisual · 2026
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </a>
+    <h1 class="hero-title">Produção audiovisual<br>que gera resultado.</h1>
+    <p class="hero-sub">Institucionais, publicidade, clipes, eventos e edições de alta performance para marcas e negócios que querem crescer.</p>
+    <div class="hero-ctas">
+      <a href="#portfolio" class="btn btn--primary">Ver portfólio<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      <a href="#contato" class="btn btn--outline"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.6-.8L3 21l1.9-5.7A8.4 8.4 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"></path></svg>Falar no WhatsApp</a>
+    </div>
+    <div class="hero-proof">
+      <div class="avatars">
+        <span class="avatar avatar--1">MB</span>
+        <span class="avatar avatar--2">JR</span>
+        <span class="avatar avatar--3">AL</span>
+      </div>
+      <div class="proof-text"><span class="proof-highlight">Avaliado ★ 5.0</span> por marcas<br>e criadores locais</div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="showreel-frame">
+      <div class="showreel-placeholder" aria-hidden="true"></div>
+      <div class="showreel-shade"></div>
+      <span class="showreel-badge">SHOWREEL 2026</span>
+      <span class="showreel-duration">02:14</span>
+      <button class="play-btn" id="openReel" aria-label="Assistir showreel"><svg width="26" height="26" viewBox="0 0 24 24"><polygon points="7 4 20 12 7 20" fill="#0a0a0a"></polygon></svg></button>
+    </div>
+  </div>
+</section>
+
+<div class="brands-strip">
+  <div class="brands-eyebrow">MARCAS QUE CONFIAM NO NOSSO TRABALHO</div>
+  <div class="vc-marquee">
+    <div class="vc-track" id="marqueeTrack"></div>
+  </div>
+</div>
+
+<section id="portfolio" class="portfolio">
+  <div class="portfolio-grid-bg" aria-hidden="true"></div>
+  <div class="portfolio-inner">
+    <div class="eyebrow"><span class="eyebrow-diamond"></span>NOSSO TRABALHO</div>
+    <h2 class="portfolio-title">Portfólio</h2>
+    <p class="portfolio-sub">Escolha a área, depois o segmento — e veja só os vídeos daquele nicho.</p>
+
+    <div class="tabs" id="tabs"></div>
+
+    <div class="segments-row">
+      <span class="segments-label">SEGMENTO</span>
+      <div class="segments-chips" id="segmentChips"></div>
+    </div>
+
+    <div class="video-grid" id="videoGrid"></div>
+  </div>
+</section>
+
+<section id="contato" class="contact">
+  <div class="contact-inner">
+    <div class="eyebrow eyebrow--center"><span class="eyebrow-diamond"></span>VAMOS CONVERSAR</div>
+    <h2 class="contact-title">Pronto para tirar sua ideia do papel?</h2>
+    <p class="contact-sub">Conte o que você precisa. Respondemos rápido e montamos o melhor caminho para o seu projeto.</p>
+    <div class="contact-ctas">
+      <a href="#contato" class="btn btn--primary btn--lg"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.6-.8L3 21l1.9-5.7A8.4 8.4 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"></path></svg>Chamar no WhatsApp</a>
+      <a href="#portfolio" class="btn btn--outline btn--lg">Ver portfólio</a>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:hello@vitacontent.com.br">hello@vitacontent.com.br</a><span class="dot-sep">·</span><a href="#contato">@vitacontent</a><span class="dot-sep">·</span><span>Atendimento em todo o Brasil</span>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-logo">
+      <span class="logo-mark logo-mark--light"><svg width="11" height="13" viewBox="0 0 11 13"><path d="M0 0L11 6.5L0 13Z" fill="#0a0a0a"></path></svg></span>
+      <span class="logo-text logo-text--light">vita<span class="logo-text-light">content</span>.</span>
+    </span>
+    <p class="footer-tagline">Produção audiovisual estratégica para marcas e negócios que querem crescer.</p>
+    <span class="footer-copy">© 2026 Vita Content · Todos os direitos reservados</span>
+  </div>
+</footer>
+
+<div class="reel-modal" id="reelModal" hidden>
+  <div class="reel-modal-card">
+    <div class="reel-modal-media">
+      <span class="reel-modal-play"><svg width="26" height="26" viewBox="0 0 24 24"><polygon points="7 4 20 12 7 20" fill="#0a0a0a"></polygon></svg></span>
+      <div class="reel-modal-label">SHOWREEL 2026 · VITA CONTENT</div>
+      <div class="reel-modal-hint">Envie o arquivo do reel para incorporar aqui</div>
+    </div>
+    <div class="reel-modal-footer">
+      <span>Nosso showreel</span>
+      <button class="btn btn--modal-close" id="closeReel">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
