@@ -2,37 +2,50 @@
   'use strict';
 
   // ===================================================================
-  //  🎬 SEUS VÍDEOS — adicione aqui
-  //  Copie uma linha, troque os valores e pronto. Campos:
-  //   aba:      chave da aba -> locais | liberais | institucionais |
-  //             publicidade | clipes | eventos | formatos
-  //   segmento: nome EXATO do segmento (igual aparece no chip)
-  //   titulo:   texto que aparece no card
-  //   youtube:  o ID do vídeo (o pedaço depois de /shorts/ , v= ou youtu.be/)
-  //             ex.: https://youtube.com/shorts/aui4-NVT76Y  ->  'aui4-NVT76Y'
+  // 🎬 SEUS VÍDEOS — adicione aqui
+  // Copie uma linha, troque os valores e pronto. Campos:
+  // aba: chave da aba -> locais | liberais | institucionais |
+  // publicidade | clipes | eventos | formatos
+  //segmento: nome EXATO do segmento (igual aparece no chip)
+  // título: texto que aparece no card
+  // youtube: o ID do vídeo (o pedaço depois de /shorts/ , v= ou youtu.be/)
   // ===================================================================
-  const VIDEOS = [
-    { aba: 'liberais', segmento: 'Advogados', titulo: 'Vídeo de teste', youtube: 'aui4-NVT76Y' },
+  const VÍDEOS = [
+    { aba: 'liberais', segmento: 'Advogados', título: 'Vídeo de teste', youtube: 'aui4-NVT76Y' },
   ];
   // ===================================================================
 
-  const CATALOG = [
+  // ===================================================================
+  // 🏷️ MARCAS (logos) — a faixa "MARCAS QUE CONFIAM NO NOSSO TRABALHO"
+  // Cada logo fica num cartão branco. Pra adicionar: suba o arquivo em
+  // assets/ no GitHub e uma linha aqui com { src, alt }.
+  // ===================================================================
+  const MARCAS = [
+    { src: 'ativos/bradesco.png', alt: 'Bradesco' },
+    { src: 'assets/coca-cola.png', alt: 'Coca-Cola' },
+    { src: 'assets/monster.png', alt: 'Monster Energy' },
+    { src: 'assets/giraffas.png.svg.webp', alt: 'Girafas' },
+    { src: 'assets/921455_af4218998af34285b9810b5e9c4a1e2d~mv2.png', alt: 'Nova Escola' },
+    { src: 'assets/tropical-grill.png', alt: 'Churrasqueira Tropical' },
+    { src: 'assets/valec.png', alt: 'VALEC' },
+    { src: 'assets/tubotecnica.png', alt: 'Tubotecnica' },
+    { src: 'assets/luxdecor.png', alt: 'luxdecor' },
+    { src: 'assets/sm.png', alt: 'SM' },
+  ];
+  // ===================================================================
+
+  const CATÁLOGO = [
     { key: 'locais', label: 'Negócios locais', c1: '#262a30', c2: '#0e1013', segs: ['Loja', 'Restaurante', 'Barbearia', 'Academia'] },
-    { key: 'liberais', label: 'Profissionais liberais', c1: '#23262f', c2: '#0d0f13', segs: ['Advogados', 'Estética', 'Dentistas', 'Contadores'] },
-    { key: 'institucionais', label: 'Institucional', c1: '#24272f', c2: '#0d0e12', segs: ['Indústria', 'Saúde', 'Educação'] },
+    { chave: 'liberais', rótulo: 'Profissionais liberais', c1: '#23262f', c2: '#0d0f13', segs: ['Advogados', 'Estética', 'Dentistas', 'Contadores'] },
+    { chave: 'institucionais', rótulo: 'Institucional', c1: '#24272f', c2: '#0d0e12', segs: ['Indústria', 'Saúde', 'Educação'] },
     { key: 'publicidade', label: 'Publicidade', c1: '#2b2531', c2: '#100d14', segs: ['Campanhas', 'Lançamentos', 'Promoções'] },
     { key: 'clipes', label: 'Clipes', c1: '#1f2a2a', c2: '#0b1010', segs: ['Musicais', 'Aftermovie', 'Documental'] },
     { key: 'eventos', label: 'Eventos', c1: '#2c2822', c2: '#12100b', segs: ['Corporativo', 'Social', 'Festivais'] },
     { key: 'formatos', label: 'Formatos de edição', c1: '#25242f', c2: '#0d0d13', segs: ['Reels', 'Cortes', 'VSL', 'Motion'] },
   ];
 
-  const BRANDS = [
-    ['Meridian', '#2563eb'], ['Aurora', '#e11d48'], ['Loja Norte', '#059669'],
-    ['Prumo', '#d97706'], ['Sabor Local', '#7c3aed'], ['Studio Vibe', '#0891b2'], ['Nova Casa', '#db2777'],
-  ];
-
-  // ── Estilos do player + cards clicáveis (injetados, pra não precisar mexer no CSS) ──
-  const STYLE = `
+  // ── Estilos injetados (player + cartões de logotipo) ────────────────
+  const ESTILO = `
     .video-card--live{cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
     .video-card--live:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.25);box-shadow:0 18px 40px -18px rgba(0,0,0,.7)}
     .video-card--live:focus-visible{outline:2px solid var(--pf-accent,#fff);outline-offset:2px}
@@ -42,168 +55,172 @@
     .video-modal-frame{aspect-ratio:9/16;height:min(85vh,880px);max-width:92vw;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.55)}
     .video-modal-frame iframe{width:100%;height:100%;border:0;display:block}
     .video-modal-close{position:absolute;top:10px;right:10px;z-index:2;width:40px;height:40px;border-radius:50%;border:none;background:rgba(255,255,255,.95);color:#0a0a0a;font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+    .brands-strip .vc-track{gap:24px;padding-left:24px}
+    .brand-logo{display:inline-flex;align-items:center;justify-content:center;height:72px;width:150px;padding:0 22px;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);flex:0 0 auto}
+    .brand-logo img{max-height:46px;max-width:118px;width:auto;height:auto;object-fit:contain;display:block}
   `;
 
   const MODAL_HTML = `
     <div class="video-modal" id="videoModal" hidden>
       <div class="video-modal-card">
-        <button class="video-modal-close" id="closeVideo" aria-label="Fechar vídeo">&times;</button>
+        <button class="video-modal-close" id="closeVideo" aria-label="Fechar vídeo">×</button>
         <div class="video-modal-frame">
           <iframe id="videoFrame" src="" title="Vídeo do portfólio" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       </div>
     </div>`;
 
-  function injectPlayer() {
-    if (!document.getElementById('vc-player-style')) {
+  função injectPlayer() {
+    se (!document.getElementById('vc-player-style')) {
       const st = document.createElement('style');
       st.id = 'vc-player-style';
-      st.textContent = STYLE;
-      document.head.appendChild(st);
+      st.textContent = ESTILO;
+      documento.cabeçalho.appendChild(st);
     }
-    if (!document.getElementById('videoModal')) {
+    se (!document.getElementById('videoModal')) {
       const wrap = document.createElement('div');
       wrap.innerHTML = MODAL_HTML.trim();
       document.body.appendChild(wrap.firstChild);
     }
   }
 
-  const state = { cat: 'locais', seg: 0 };
+  const estado = { cat: 'locais', seg: 0 };
 
   const tabsEl = document.getElementById('tabs');
   const chipsEl = document.getElementById('segmentChips');
   const gridEl = document.getElementById('videoGrid');
   const marqueeEl = document.getElementById('marqueeTrack');
 
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, (c) => (
-      { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  função escapeHtml(s) {
+    retornar String(s).replace(/[&<>"']/g, (c) => (
+      { '&': '&', '<': '<', '>': '>', '"': '"', "'": ''' }[c]
     ));
   }
 
-  function coverStyle(cat) {
+  função coverStyle(gato) {
     return `background-image:repeating-linear-gradient(125deg,rgba(255,255,255,.05) 0 2px,transparent 2px 12px),linear-gradient(160deg,${cat.c1},${cat.c2});background-color:${cat.c2}`;
   }
 
   const PLAY_ICON = '<svg width="15" height="15" viewBox="0 0 24 24"><polygon points="8 5 19 12 8 19" fill="#fff"></polygon></svg>';
 
-  function renderMarquee() {
-    const spans = BRANDS.map(([name, color]) =>
-      `<span class="brand-name" style="color:${color}">${escapeHtml(name)}</span>`
-    ).join('');
-    marqueeEl.innerHTML = spans + spans;
+  função renderizarMarquee() {
+    const cards = BRANDS.map((b) =>
+      `<span class="brand-logo"><img src="${b.src}" alt="${escapeHtml(b.alt)}"></span>`
+    ).juntar('');
+    // Duas cópias pra o loop translateX(-50%) emendar sem cortar.
+    marqueeEl.innerHTML = cards + cards;
   }
 
-  function renderTabs() {
+  função renderizarTabs() {
     tabsEl.innerHTML = CATALOG.map((cat) => {
       const active = cat.key === state.cat;
-      return `<button type="button" class="tab${active ? ' tab--active' : ''}" data-cat="${cat.key}">${cat.label}</button>`;
-    }).join('');
+      retornar `<button type="button" class="tab${active ? ' tab--active' : ''}" data-cat="${cat.key}">${cat.label}</button>`;
+    }).juntar('');
   }
 
-  function renderSegments(current) {
+  função renderSegmentos(atual) {
     chipsEl.innerHTML = current.segs.map((name, i) => {
       const active = i === state.seg;
-      return `<button type="button" class="segment-chip${active ? ' segment-chip--active' : ''}" data-seg="${i}">${escapeHtml(name)}</button>`;
-    }).join('');
+      retornar `<button type="button" class="segment-chip${active ? ' segment-chip--active' : ''}" data-seg="${i}">${escapeHtml(name)}</button>`;
+    }).juntar('');
   }
 
-  function realCard(v, segName) {
+  função realCartão(v, nomeDoSeg) {
     const thumb = `https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg`;
-    return `
-      <div class="video-card video-card--live" data-yt="${escapeHtml(v.youtube)}" role="button" tabindex="0" aria-label="Assistir: ${escapeHtml(v.titulo)}">
+    retornar `
+      <div class="video-card video-card--live" data-yt="${escapeHtml(v.youtube)}" role="button" tabindex="0" aria-label="Assistente: ${escapeHtml(v.titulo)}">
         <div class="video-cover" style="background-image:url('${thumb}');background-size:cover;background-position:center;background-color:#0b0b0d">
           <div class="video-cover-shade"></div>
-          <span class="video-play">${PLAY_ICON}</span>
+          <span class="video-play">${PLAY_ICON}>
           <span class="video-badge">${escapeHtml(segName)}</span>
           <div class="video-title">${escapeHtml(v.titulo)}</div>
         </div>
       </div>`;
   }
 
-  function placeholderCard(current, segName, i) {
-    const cover = coverStyle(current);
-    return `
+  função placeholderCartão(atual, segName, i) {
+    const capa = estiloDeCapa(atual);
+    retornar `
       <div class="video-card">
         <div class="video-cover" style="${cover}">
           <div class="video-cover-shade"></div>
-          <span class="video-play">${PLAY_ICON}</span>
+          <span class="video-play">${PLAY_ICON}>
           <span class="video-badge">${escapeHtml(segName)}</span>
           <div class="video-title">${escapeHtml(segName)} · Vídeo ${i + 1}</div>
         </div>
       </div>`;
   }
 
-  function renderVideos(current, segName) {
-    const reais = VIDEOS.filter((v) => v.aba === current.key && v.segmento === segName);
-    if (reais.length) {
+  função renderizarVídeos(atual, nomeDoSegmento) {
+    const reais = VÍDEOS.filter((v) => v.aba === current.key && v.segmento === segName);
+    se (reais.comprimento) {
       gridEl.innerHTML = reais.map((v) => realCard(v, segName)).join('');
-    } else {
+    } outro {
       gridEl.innerHTML = [0, 1, 2, 3].map((i) => placeholderCard(current, segName, i)).join('');
     }
   }
 
-  function render() {
+  função renderizar() {
     const current = CATALOG.find((c) => c.key === state.cat) || CATALOG[0];
-    state.seg = Math.min(state.seg, current.segs.length - 1);
+    estado.seg = Math.min(estado.seg, atual.segs.length - 1);
     const segName = current.segs[state.seg];
-    renderTabs();
-    renderSegments(current);
-    renderVideos(current, segName);
+    renderizarTabs();
+    renderSegmentos(atual);
+    renderVideos(atual, nomeDoSeg);
   }
 
   injectPlayer();
 
   tabsEl.addEventListener('click', (e) => {
     const btn = e.target.closest('.tab');
-    if (!btn) return;
-    state.cat = btn.dataset.cat;
-    state.seg = 0;
-    render();
+    se (!btn) retornar;
+    estado.cat = btn.dataset.cat;
+    estado.seg = 0;
+    renderizar();
   });
 
   chipsEl.addEventListener('click', (e) => {
     const btn = e.target.closest('.segment-chip');
-    if (!btn) return;
-    state.seg = Number(btn.dataset.seg);
-    render();
+    se (!btn) retornar;
+    estado.seg = Número(btn.dataset.seg);
+    renderizar();
   });
 
   renderMarquee();
-  render();
+  renderizar();
 
-  // ── Player de vídeo (popup) ─────────────────────────────────────
+  // ── Reprodutor de vídeo (pop-up) ─────────────────────────────────────
   const videoModal = document.getElementById('videoModal');
   const videoFrame = document.getElementById('videoFrame');
   const closeVideoBtn = document.getElementById('closeVideo');
 
-  function openVideo(id) {
+  função abrirVídeo(id) {
     videoFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1`;
     videoModal.hidden = false;
   }
-  function closeVideo() {
+  função fecharVídeo() {
     videoModal.hidden = true;
     videoFrame.src = '';
   }
 
   gridEl.addEventListener('click', (e) => {
     const card = e.target.closest('.video-card--live');
-    if (card) openVideo(card.dataset.yt);
+    se (card) abraVídeo(card.dataset.yt);
   });
   gridEl.addEventListener('keydown', (e) => {
-    if (e.key !== 'Enter' && e.key !== ' ') return;
+    se (e.key !== 'Enter' && e.key !== ' ') retorne;
     const card = e.target.closest('.video-card--live');
     if (card) { e.preventDefault(); openVideo(card.dataset.yt); }
   });
   closeVideoBtn.addEventListener('click', closeVideo);
   videoModal.addEventListener('click', (e) => { if (e.target === videoModal) closeVideo(); });
 
-  // ── Showreel modal (já existe no index.html) ────────────────────
+  // ── Showreel modal (já não existe index.html) ────────────────────
   const reelModal = document.getElementById('reelModal');
   const openReelBtn = document.getElementById('openReel');
   const closeReelBtn = document.getElementById('closeReel');
 
-  function openReel() { reelModal.hidden = false; }
+  função openReel() { reelModal.hidden = false; }
   function closeReel() { reelModal.hidden = true; }
 
   if (openReelBtn) openReelBtn.addEventListener('click', openReel);
@@ -211,8 +228,8 @@
   if (reelModal) reelModal.addEventListener('click', (e) => { if (e.target === reelModal) closeReel(); });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    if (!videoModal.hidden) closeVideo();
+    se (e.key !== 'Escape') retorne;
+    se (!videoModal.hidden) feche o vídeo();
     if (reelModal && !reelModal.hidden) closeReel();
   });
 })();
