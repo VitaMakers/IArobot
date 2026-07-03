@@ -2,31 +2,31 @@
   'use strict';
 
   // ===================================================================
-  // 🎬 SEUS VÍDEOS — adicione aqui
-  // Copie uma linha, troque os valores e pronto. Campos:
-  // aba: chave da aba -> locais | liberais | institucionais |
-  // publicidade | clipes | eventos | formatos
-  //segmento: nome EXATO do segmento (igual aparece no chip)
-  // título: texto que aparece no card
-  // youtube: o ID do vídeo (o pedaço depois de /shorts/ , v= ou youtu.be/)
+  //  🎬 SEUS VÍDEOS — adicione aqui
+  //  Copie uma linha, troque os valores e pronto. Campos:
+  //   aba:      chave da aba -> locais | liberais | institucionais |
+  //             publicidade | clipes | eventos | formatos
+  //   segmento: nome EXATO do segmento (igual aparece no chip)
+  //   titulo:   texto que aparece no card
+  //   youtube:  o ID do vídeo (o pedaço depois de /shorts/ , v= ou youtu.be/)
   // ===================================================================
-  const VÍDEOS = [
-    { aba: 'liberais', segmento: 'Advogados', título: 'Vídeo de teste', youtube: 'aui4-NVT76Y' },
+  const VIDEOS = [
+    { aba: 'liberais', segmento: 'Advogados', titulo: 'Vídeo de teste', youtube: 'aui4-NVT76Y' },
   ];
   // ===================================================================
 
   // ===================================================================
-  // 🏷️ MARCAS (logos) — a faixa "MARCAS QUE CONFIAM NO NOSSO TRABALHO"
-  // Cada logo fica num cartão branco. Pra adicionar: suba o arquivo em
-  // assets/ no GitHub e uma linha aqui com { src, alt }.
+  //  🏷️ MARCAS (logos) — a faixa "MARCAS QUE CONFIAM NO NOSSO TRABALHO"
+  //  Cada logo fica num cartão branco. Pra adicionar: suba o arquivo em
+  //  assets/ no GitHub e acrescente uma linha aqui com { src, alt }.
   // ===================================================================
-  const MARCAS = [
-    { src: 'ativos/bradesco.png', alt: 'Bradesco' },
+  const BRANDS = [
+    { src: 'assets/bradesco.png', alt: 'Bradesco' },
     { src: 'assets/coca-cola.png', alt: 'Coca-Cola' },
     { src: 'assets/monster.png', alt: 'Monster Energy' },
-    { src: 'assets/giraffas.png.svg.webp', alt: 'Girafas' },
+    { src: 'assets/giraffas.png.svg.webp', alt: 'Giraffas' },
     { src: 'assets/921455_af4218998af34285b9810b5e9c4a1e2d~mv2.png', alt: 'Nova Escola' },
-    { src: 'assets/tropical-grill.png', alt: 'Churrasqueira Tropical' },
+    { src: 'assets/tropical-grill.png', alt: 'Tropical Grill' },
     { src: 'assets/valec.png', alt: 'VALEC' },
     { src: 'assets/tubotecnica.png', alt: 'Tubotecnica' },
     { src: 'assets/luxdecor.png', alt: 'luxdecor' },
@@ -34,18 +34,18 @@
   ];
   // ===================================================================
 
-  const CATÁLOGO = [
+  const CATALOG = [
     { key: 'locais', label: 'Negócios locais', c1: '#262a30', c2: '#0e1013', segs: ['Loja', 'Restaurante', 'Barbearia', 'Academia'] },
-    { chave: 'liberais', rótulo: 'Profissionais liberais', c1: '#23262f', c2: '#0d0f13', segs: ['Advogados', 'Estética', 'Dentistas', 'Contadores'] },
-    { chave: 'institucionais', rótulo: 'Institucional', c1: '#24272f', c2: '#0d0e12', segs: ['Indústria', 'Saúde', 'Educação'] },
+    { key: 'liberais', label: 'Profissionais liberais', c1: '#23262f', c2: '#0d0f13', segs: ['Advogados', 'Estética', 'Dentistas', 'Contadores'] },
+    { key: 'institucionais', label: 'Institucional', c1: '#24272f', c2: '#0d0e12', segs: ['Indústria', 'Saúde', 'Educação'] },
     { key: 'publicidade', label: 'Publicidade', c1: '#2b2531', c2: '#100d14', segs: ['Campanhas', 'Lançamentos', 'Promoções'] },
     { key: 'clipes', label: 'Clipes', c1: '#1f2a2a', c2: '#0b1010', segs: ['Musicais', 'Aftermovie', 'Documental'] },
     { key: 'eventos', label: 'Eventos', c1: '#2c2822', c2: '#12100b', segs: ['Corporativo', 'Social', 'Festivais'] },
     { key: 'formatos', label: 'Formatos de edição', c1: '#25242f', c2: '#0d0d13', segs: ['Reels', 'Cortes', 'VSL', 'Motion'] },
   ];
 
-  // ── Estilos injetados (player + cartões de logotipo) ────────────────
-  const ESTILO = `
+  // ── Estilos injetados (player + cartões de logo) ────────────────
+  const STYLE = `
     .video-card--live{cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
     .video-card--live:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.25);box-shadow:0 18px 40px -18px rgba(0,0,0,.7)}
     .video-card--live:focus-visible{outline:2px solid var(--pf-accent,#fff);outline-offset:2px}
@@ -63,164 +63,164 @@
   const MODAL_HTML = `
     <div class="video-modal" id="videoModal" hidden>
       <div class="video-modal-card">
-        <button class="video-modal-close" id="closeVideo" aria-label="Fechar vídeo">×</button>
+        <button class="video-modal-close" id="closeVideo" aria-label="Fechar vídeo">&times;</button>
         <div class="video-modal-frame">
           <iframe id="videoFrame" src="" title="Vídeo do portfólio" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       </div>
     </div>`;
 
-  função injectPlayer() {
-    se (!document.getElementById('vc-player-style')) {
+  function injectPlayer() {
+    if (!document.getElementById('vc-player-style')) {
       const st = document.createElement('style');
       st.id = 'vc-player-style';
-      st.textContent = ESTILO;
-      documento.cabeçalho.appendChild(st);
+      st.textContent = STYLE;
+      document.head.appendChild(st);
     }
-    se (!document.getElementById('videoModal')) {
+    if (!document.getElementById('videoModal')) {
       const wrap = document.createElement('div');
       wrap.innerHTML = MODAL_HTML.trim();
       document.body.appendChild(wrap.firstChild);
     }
   }
 
-  const estado = { cat: 'locais', seg: 0 };
+  const state = { cat: 'locais', seg: 0 };
 
   const tabsEl = document.getElementById('tabs');
   const chipsEl = document.getElementById('segmentChips');
   const gridEl = document.getElementById('videoGrid');
   const marqueeEl = document.getElementById('marqueeTrack');
 
-  função escapeHtml(s) {
-    retornar String(s).replace(/[&<>"']/g, (c) => (
-      { '&': '&', '<': '<', '>': '>', '"': '"', "'": ''' }[c]
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => (
+      { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
     ));
   }
 
-  função coverStyle(gato) {
+  function coverStyle(cat) {
     return `background-image:repeating-linear-gradient(125deg,rgba(255,255,255,.05) 0 2px,transparent 2px 12px),linear-gradient(160deg,${cat.c1},${cat.c2});background-color:${cat.c2}`;
   }
 
   const PLAY_ICON = '<svg width="15" height="15" viewBox="0 0 24 24"><polygon points="8 5 19 12 8 19" fill="#fff"></polygon></svg>';
 
-  função renderizarMarquee() {
+  function renderMarquee() {
     const cards = BRANDS.map((b) =>
       `<span class="brand-logo"><img src="${b.src}" alt="${escapeHtml(b.alt)}"></span>`
-    ).juntar('');
+    ).join('');
     // Duas cópias pra o loop translateX(-50%) emendar sem cortar.
     marqueeEl.innerHTML = cards + cards;
   }
 
-  função renderizarTabs() {
+  function renderTabs() {
     tabsEl.innerHTML = CATALOG.map((cat) => {
       const active = cat.key === state.cat;
-      retornar `<button type="button" class="tab${active ? ' tab--active' : ''}" data-cat="${cat.key}">${cat.label}</button>`;
-    }).juntar('');
+      return `<button type="button" class="tab${active ? ' tab--active' : ''}" data-cat="${cat.key}">${cat.label}</button>`;
+    }).join('');
   }
 
-  função renderSegmentos(atual) {
+  function renderSegments(current) {
     chipsEl.innerHTML = current.segs.map((name, i) => {
       const active = i === state.seg;
-      retornar `<button type="button" class="segment-chip${active ? ' segment-chip--active' : ''}" data-seg="${i}">${escapeHtml(name)}</button>`;
-    }).juntar('');
+      return `<button type="button" class="segment-chip${active ? ' segment-chip--active' : ''}" data-seg="${i}">${escapeHtml(name)}</button>`;
+    }).join('');
   }
 
-  função realCartão(v, nomeDoSeg) {
+  function realCard(v, segName) {
     const thumb = `https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg`;
-    retornar `
-      <div class="video-card video-card--live" data-yt="${escapeHtml(v.youtube)}" role="button" tabindex="0" aria-label="Assistente: ${escapeHtml(v.titulo)}">
+    return `
+      <div class="video-card video-card--live" data-yt="${escapeHtml(v.youtube)}" role="button" tabindex="0" aria-label="Assistir: ${escapeHtml(v.titulo)}">
         <div class="video-cover" style="background-image:url('${thumb}');background-size:cover;background-position:center;background-color:#0b0b0d">
           <div class="video-cover-shade"></div>
-          <span class="video-play">${PLAY_ICON}>
+          <span class="video-play">${PLAY_ICON}</span>
           <span class="video-badge">${escapeHtml(segName)}</span>
           <div class="video-title">${escapeHtml(v.titulo)}</div>
         </div>
       </div>`;
   }
 
-  função placeholderCartão(atual, segName, i) {
-    const capa = estiloDeCapa(atual);
-    retornar `
+  function placeholderCard(current, segName, i) {
+    const cover = coverStyle(current);
+    return `
       <div class="video-card">
         <div class="video-cover" style="${cover}">
           <div class="video-cover-shade"></div>
-          <span class="video-play">${PLAY_ICON}>
+          <span class="video-play">${PLAY_ICON}</span>
           <span class="video-badge">${escapeHtml(segName)}</span>
           <div class="video-title">${escapeHtml(segName)} · Vídeo ${i + 1}</div>
         </div>
       </div>`;
   }
 
-  função renderizarVídeos(atual, nomeDoSegmento) {
-    const reais = VÍDEOS.filter((v) => v.aba === current.key && v.segmento === segName);
-    se (reais.comprimento) {
+  function renderVideos(current, segName) {
+    const reais = VIDEOS.filter((v) => v.aba === current.key && v.segmento === segName);
+    if (reais.length) {
       gridEl.innerHTML = reais.map((v) => realCard(v, segName)).join('');
-    } outro {
+    } else {
       gridEl.innerHTML = [0, 1, 2, 3].map((i) => placeholderCard(current, segName, i)).join('');
     }
   }
 
-  função renderizar() {
+  function render() {
     const current = CATALOG.find((c) => c.key === state.cat) || CATALOG[0];
-    estado.seg = Math.min(estado.seg, atual.segs.length - 1);
+    state.seg = Math.min(state.seg, current.segs.length - 1);
     const segName = current.segs[state.seg];
-    renderizarTabs();
-    renderSegmentos(atual);
-    renderVideos(atual, nomeDoSeg);
+    renderTabs();
+    renderSegments(current);
+    renderVideos(current, segName);
   }
 
   injectPlayer();
 
   tabsEl.addEventListener('click', (e) => {
     const btn = e.target.closest('.tab');
-    se (!btn) retornar;
-    estado.cat = btn.dataset.cat;
-    estado.seg = 0;
-    renderizar();
+    if (!btn) return;
+    state.cat = btn.dataset.cat;
+    state.seg = 0;
+    render();
   });
 
   chipsEl.addEventListener('click', (e) => {
     const btn = e.target.closest('.segment-chip');
-    se (!btn) retornar;
-    estado.seg = Número(btn.dataset.seg);
-    renderizar();
+    if (!btn) return;
+    state.seg = Number(btn.dataset.seg);
+    render();
   });
 
   renderMarquee();
-  renderizar();
+  render();
 
-  // ── Reprodutor de vídeo (pop-up) ─────────────────────────────────────
+  // ── Player de vídeo (popup) ─────────────────────────────────────
   const videoModal = document.getElementById('videoModal');
   const videoFrame = document.getElementById('videoFrame');
   const closeVideoBtn = document.getElementById('closeVideo');
 
-  função abrirVídeo(id) {
+  function openVideo(id) {
     videoFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1`;
     videoModal.hidden = false;
   }
-  função fecharVídeo() {
+  function closeVideo() {
     videoModal.hidden = true;
     videoFrame.src = '';
   }
 
   gridEl.addEventListener('click', (e) => {
     const card = e.target.closest('.video-card--live');
-    se (card) abraVídeo(card.dataset.yt);
+    if (card) openVideo(card.dataset.yt);
   });
   gridEl.addEventListener('keydown', (e) => {
-    se (e.key !== 'Enter' && e.key !== ' ') retorne;
+    if (e.key !== 'Enter' && e.key !== ' ') return;
     const card = e.target.closest('.video-card--live');
     if (card) { e.preventDefault(); openVideo(card.dataset.yt); }
   });
   closeVideoBtn.addEventListener('click', closeVideo);
   videoModal.addEventListener('click', (e) => { if (e.target === videoModal) closeVideo(); });
 
-  // ── Showreel modal (já não existe index.html) ────────────────────
+  // ── Showreel modal (já existe no index.html) ────────────────────
   const reelModal = document.getElementById('reelModal');
   const openReelBtn = document.getElementById('openReel');
   const closeReelBtn = document.getElementById('closeReel');
 
-  função openReel() { reelModal.hidden = false; }
+  function openReel() { reelModal.hidden = false; }
   function closeReel() { reelModal.hidden = true; }
 
   if (openReelBtn) openReelBtn.addEventListener('click', openReel);
@@ -228,8 +228,8 @@
   if (reelModal) reelModal.addEventListener('click', (e) => { if (e.target === reelModal) closeReel(); });
 
   document.addEventListener('keydown', (e) => {
-    se (e.key !== 'Escape') retorne;
-    se (!videoModal.hidden) feche o vídeo();
+    if (e.key !== 'Escape') return;
+    if (!videoModal.hidden) closeVideo();
     if (reelModal && !reelModal.hidden) closeReel();
   });
 })();
