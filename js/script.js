@@ -58,6 +58,20 @@
     .brands-strip .vc-track{gap:24px;padding-left:24px}
     .brand-logo{display:inline-flex;align-items:center;justify-content:center;height:72px;width:150px;padding:0 22px;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);flex:0 0 auto}
     .brand-logo img{max-height:46px;max-width:118px;width:auto;height:auto;object-fit:contain;display:block}
+    @media (max-width:820px){ .nav-actions{display:none} }
+    @media (max-width:640px){
+      .nav{padding:12px 16px;gap:10px}
+      .nav-pill{padding:4px;gap:2px}
+      .nav-link{padding:7px 13px;font-size:13px}
+      .logo-text{font-size:17px}
+      .brand-logo{height:60px;width:120px;padding:0 16px}
+      .brand-logo img{max-height:36px;max-width:92px}
+      .video-modal-frame{height:auto;width:min(94vw,420px);aspect-ratio:9/16}
+    }
+    @media (max-width:400px){
+      .nav-link{padding:6px 10px;font-size:12.5px}
+      .logo-text{font-size:16px}
+    }
   `;
 
   const MODAL_HTML = `
