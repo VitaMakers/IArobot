@@ -12,6 +12,12 @@
   // ===================================================================
   const VIDEOS = [
     { aba: 'liberais', segmento: 'Advogados', titulo: 'Vídeo de teste', youtube: 'aui4-NVT76Y' },
+    { aba: 'liberais', segmento: 'Área da saúde', titulo: 'Área da saúde', youtube: 'puAgKZoW-cs' },
+    { aba: 'locais', segmento: 'Restaurante', titulo: 'Restaurante', youtube: 'oesjlnWCr5o' },
+    { aba: 'locais', segmento: 'Loja', titulo: 'Carro 1', youtube: 'sh7gLdbOcmo' },
+    { aba: 'locais', segmento: 'Loja', titulo: 'Carro 2', youtube: 'W-tE0Y60A4I' },
+    { aba: 'locais', segmento: 'Loja', titulo: 'Carro 3', youtube: 'Gf21ALUxn-Y' },
+    { aba: 'eventos', segmento: 'Formatura', titulo: 'Formatura', youtube: '1MPFBOLmo9U', formato: 'h' },
   ];
   // ===================================================================
 
@@ -36,11 +42,11 @@
 
   const CATALOG = [
     { key: 'locais', label: 'Negócios locais', c1: '#262a30', c2: '#0e1013', segs: ['Loja', 'Restaurante', 'Barbearia', 'Academia'] },
-    { key: 'liberais', label: 'Profissionais liberais', c1: '#23262f', c2: '#0d0f13', segs: ['Advogados', 'Estética', 'Dentistas', 'Contadores'] },
+    { key: 'liberais', label: 'Profissionais liberais', c1: '#23262f', c2: '#0d0f13', segs: ['Advogados', 'Estética', 'Área da saúde', 'Contadores'] },
     { key: 'institucionais', label: 'Institucional', c1: '#24272f', c2: '#0d0e12', segs: ['Indústria', 'Saúde', 'Educação'] },
     { key: 'publicidade', label: 'Publicidade', c1: '#2b2531', c2: '#100d14', segs: ['Campanhas', 'Lançamentos', 'Promoções'] },
     { key: 'clipes', label: 'Clipes', c1: '#1f2a2a', c2: '#0b1010', segs: ['Musicais', 'Aftermovie', 'Documental'] },
-    { key: 'eventos', label: 'Eventos', c1: '#2c2822', c2: '#12100b', segs: ['Corporativo', 'Social', 'Festivais'] },
+    { key: 'eventos', label: 'Eventos', c1: '#2c2822', c2: '#12100b', segs: ['Corporativo', 'Social', 'Festivais', 'Formatura'] },
     { key: 'formatos', label: 'Formatos de edição', c1: '#25242f', c2: '#0d0d13', segs: ['Reels', 'Cortes', 'VSL', 'Motion'] },
   ];
 
@@ -55,6 +61,8 @@
     .video-modal-frame{aspect-ratio:9/16;height:min(85vh,880px);max-width:92vw;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.55)}
     .video-modal-frame iframe{width:100%;height:100%;border:0;display:block}
     .video-modal-close{position:absolute;top:10px;right:10px;z-index:2;width:40px;height:40px;border-radius:50%;border:none;background:rgba(255,255,255,.95);color:#0a0a0a;font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+    .video-card--h .video-cover{aspect-ratio:16/9}
+    .video-modal-frame.is-h{aspect-ratio:16/9;height:auto;width:min(94vw,940px)}
     .brands-strip .vc-track{gap:24px;padding-left:24px}
     .brand-logo{display:inline-flex;align-items:center;justify-content:center;height:72px;width:150px;padding:0 22px;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);flex:0 0 auto}
     .brand-logo img{max-height:46px;max-width:118px;width:auto;height:auto;object-fit:contain;display:block}
@@ -140,9 +148,10 @@
   }
 
   function realCard(v, segName) {
+    const h = v.formato === 'h';
     const thumb = `https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg`;
     return `
-      <div class="video-card video-card--live" data-yt="${escapeHtml(v.youtube)}" role="button" tabindex="0" aria-label="Assistir: ${escapeHtml(v.titulo)}">
+      <div class="video-card video-card--live${h ? ' video-card--h' : ''}" data-yt="${escapeHtml(v.youtube)}" data-format="${h ? 'h' : 'v'}" role="button" tabindex="0" aria-label="Assistir: ${escapeHtml(v.titulo)}">
         <div class="video-cover" style="background-image:url('${thumb}');background-size:cover;background-position:center;background-color:#0b0b0d">
           <div class="video-cover-shade"></div>
           <span class="video-play">${PLAY_ICON}</span>
@@ -207,8 +216,10 @@
   const videoModal = document.getElementById('videoModal');
   const videoFrame = document.getElementById('videoFrame');
   const closeVideoBtn = document.getElementById('closeVideo');
+  const videoModalFrame = videoModal.querySelector('.video-modal-frame');
 
-  function openVideo(id) {
+  function openVideo(id, format) {
+    if (videoModalFrame) videoModalFrame.classList.toggle('is-h', format === 'h');
     videoFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1`;
     videoModal.hidden = false;
   }
@@ -219,12 +230,12 @@
 
   gridEl.addEventListener('click', (e) => {
     const card = e.target.closest('.video-card--live');
-    if (card) openVideo(card.dataset.yt);
+    if (card) openVideo(card.dataset.yt, card.dataset.format);
   });
   gridEl.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter' && e.key !== ' ') return;
     const card = e.target.closest('.video-card--live');
-    if (card) { e.preventDefault(); openVideo(card.dataset.yt); }
+    if (card) { e.preventDefault(); openVideo(card.dataset.yt, card.dataset.format); }
   });
   closeVideoBtn.addEventListener('click', closeVideo);
   videoModal.addEventListener('click', (e) => { if (e.target === videoModal) closeVideo(); });
