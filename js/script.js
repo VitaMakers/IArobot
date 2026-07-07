@@ -40,6 +40,15 @@
   ];
   // ===================================================================
 
+  // ===================================================================
+  //  📱 CONTATO — WhatsApp e Instagram (troque aqui quando mudar)
+  //  WHATSAPP: só números -> 55 (Brasil) + DDD + número, sem + nem espaços.
+  // ===================================================================
+  const WHATSAPP = '5515991876671';
+  const WHATSAPP_MSG = 'Olá! Vim pelo site da Vita Content e quero saber mais sobre os serviços de vocês.';
+  const INSTAGRAM = 'https://instagram.com/vitacontent_';
+  // ===================================================================
+
   const CATALOG = [
     { key: 'locais', label: 'Negócios locais', c1: '#262a30', c2: '#0e1013', segs: ['Loja', 'Restaurante', 'Barbearia', 'Academia'] },
     { key: 'liberais', label: 'Profissionais liberais', c1: '#23262f', c2: '#0d0f13', segs: ['Advogados', 'Estética', 'Área da saúde', 'Contadores'] },
@@ -104,6 +113,19 @@
       wrap.innerHTML = MODAL_HTML.trim();
       document.body.appendChild(wrap.firstChild);
     }
+  }
+
+  // Liga os botões de WhatsApp (topo/hero/contato) e o botão do Instagram.
+  function applyContactLinks() {
+    const wa = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(WHATSAPP_MSG)}`;
+    document.querySelectorAll('a').forEach((a) => {
+      const t = (a.textContent || '').toLowerCase();
+      if (t.includes('whatsapp')) {
+        a.href = wa; a.target = '_blank'; a.rel = 'noopener noreferrer';
+      } else if (t.includes('instagram')) {
+        a.href = INSTAGRAM; a.target = '_blank'; a.rel = 'noopener noreferrer';
+      }
+    });
   }
 
   const state = { cat: 'locais', seg: 0 };
@@ -193,6 +215,7 @@
   }
 
   injectPlayer();
+  applyContactLinks();
 
   tabsEl.addEventListener('click', (e) => {
     const btn = e.target.closest('.tab');
