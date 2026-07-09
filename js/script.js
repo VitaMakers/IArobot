@@ -11,12 +11,22 @@
   //   youtube:  o ID do vídeo (o pedaço depois de /shorts/ , v= ou youtu.be/)
   // ===================================================================
   const VIDEOS = [
-    { aba: 'liberais', segmento: 'Advogados', titulo: 'Vídeo de teste', youtube: 'aui4-NVT76Y' },
+    // Profissionais
+    { aba: 'liberais', segmento: 'Advogados', titulo: 'Advogados', youtube: 'aui4-NVT76Y' },
+    { aba: 'liberais', segmento: 'Advogados', titulo: 'Advogados', youtube: 'DeKOy6rSefE' },
+    { aba: 'liberais', segmento: 'Estética', titulo: 'Estética', youtube: 'EY8UOKdqY_s' },
     { aba: 'liberais', segmento: 'Área da saúde', titulo: 'Área da saúde', youtube: 'puAgKZoW-cs' },
-    { aba: 'locais', segmento: 'Restaurante', titulo: 'Restaurante', youtube: 'oesjlnWCr5o' },
-    { aba: 'locais', segmento: 'Loja', titulo: 'Carro 1', youtube: 'sh7gLdbOcmo' },
-    { aba: 'locais', segmento: 'Loja', titulo: 'Carro 2', youtube: 'W-tE0Y60A4I' },
-    { aba: 'locais', segmento: 'Loja', titulo: 'Carro 3', youtube: 'Gf21ALUxn-Y' },
+    { aba: 'liberais', segmento: 'Psicologia', titulo: 'Psicologia', youtube: 'kcj0NoLJSAk' },
+    { aba: 'liberais', segmento: 'Influenciadores', titulo: 'Influenciadores', youtube: '1mB53HyGQXI' },
+    // Negócios locais
+    { aba: 'locais', segmento: 'Carros', titulo: 'Carros', youtube: 'hN2cFhjQdro' },
+    { aba: 'locais', segmento: 'Carros', titulo: 'Carros', youtube: 'sh7gLdbOcmo' },
+    { aba: 'locais', segmento: 'Carros', titulo: 'Carros', youtube: 'W-tE0Y60A4I' },
+    { aba: 'locais', segmento: 'Carros', titulo: 'Carros', youtube: 'Gf21ALUxn-Y' },
+    { aba: 'locais', segmento: 'Comida', titulo: 'Comida', youtube: 'xFPJvXiKxVw' },
+    // Publicidade
+    { aba: 'publicidade', segmento: 'Lançamentos', titulo: 'Lançamentos', youtube: '7gb9QB9J0sg' },
+    // Eventos
     { aba: 'eventos', segmento: 'Formatura', titulo: 'Formatura', youtube: '1MPFBOLmo9U', formato: 'h' },
   ];
   // ===================================================================
@@ -50,13 +60,12 @@
   // ===================================================================
 
   const CATALOG = [
-    { key: 'locais', label: 'Negócios locais', c1: '#262a30', c2: '#0e1013', segs: ['Loja', 'Restaurante', 'Barbearia', 'Academia'] },
-    { key: 'liberais', label: 'Profissionais liberais', c1: '#23262f', c2: '#0d0f13', segs: ['Advogados', 'Estética', 'Área da saúde', 'Contadores'] },
-    { key: 'institucionais', label: 'Institucional', c1: '#24272f', c2: '#0d0e12', segs: ['Indústria', 'Saúde', 'Educação'] },
+    { key: 'institucionais', label: 'Institucional', c1: '#24272f', c2: '#0d0e12', segs: [] },
+    { key: 'locais', label: 'Negócios locais', c1: '#262a30', c2: '#0e1013', segs: ['Carros', 'Comida', 'Hospital veterinário', 'Ótica'] },
     { key: 'publicidade', label: 'Publicidade', c1: '#2b2531', c2: '#100d14', segs: ['Campanhas', 'Lançamentos', 'Promoções'] },
-    { key: 'clipes', label: 'Clipes', c1: '#1f2a2a', c2: '#0b1010', segs: ['Musicais', 'Aftermovie', 'Documental'] },
+    { key: 'liberais', label: 'Profissionais', c1: '#23262f', c2: '#0d0f13', segs: ['Advogados', 'Estética', 'Área da saúde', 'Psicologia', 'Influenciadores'] },
     { key: 'eventos', label: 'Eventos', c1: '#2c2822', c2: '#12100b', segs: ['Corporativo', 'Social', 'Festivais', 'Formatura'] },
-    { key: 'formatos', label: 'Formatos de edição', c1: '#25242f', c2: '#0d0d13', segs: ['Reels', 'Cortes', 'VSL', 'Motion'] },
+    { key: 'formatos', label: 'Formatos de edição', c1: '#25242f', c2: '#0d0d13', segs: ['Reels', 'Cortes', 'Motion'] },
   ];
 
   // ── Estilos injetados (player + cartões de logo) ────────────────
@@ -128,7 +137,7 @@
     });
   }
 
-  const state = { cat: 'locais', seg: 0 };
+  const state = { cat: 'institucionais', seg: 0 };
 
   const tabsEl = document.getElementById('tabs');
   const chipsEl = document.getElementById('segmentChips');
@@ -178,39 +187,42 @@
           <div class="video-cover-shade"></div>
           <span class="video-play">${PLAY_ICON}</span>
           <span class="video-badge">${escapeHtml(segName)}</span>
-          <div class="video-title">${escapeHtml(v.titulo)}</div>
         </div>
       </div>`;
   }
 
-  function placeholderCard(current, segName, i) {
+  function placeholderCard(current, segName) {
     const cover = coverStyle(current);
     return `
       <div class="video-card">
         <div class="video-cover" style="${cover}">
           <div class="video-cover-shade"></div>
           <span class="video-play">${PLAY_ICON}</span>
-          <span class="video-badge">${escapeHtml(segName)}</span>
-          <div class="video-title">${escapeHtml(segName)} · Vídeo ${i + 1}</div>
+          <span class="video-badge">${escapeHtml(segName || current.label)}</span>
         </div>
       </div>`;
   }
 
   function renderVideos(current, segName) {
-    const reais = VIDEOS.filter((v) => v.aba === current.key && v.segmento === segName);
+    const reais = current.segs.length
+      ? VIDEOS.filter((v) => v.aba === current.key && v.segmento === segName)
+      : VIDEOS.filter((v) => v.aba === current.key);
     if (reais.length) {
-      gridEl.innerHTML = reais.map((v) => realCard(v, segName)).join('');
+      gridEl.innerHTML = reais.map((v) => realCard(v, v.segmento || current.label)).join('');
     } else {
-      gridEl.innerHTML = [0, 1, 2, 3].map((i) => placeholderCard(current, segName, i)).join('');
+      gridEl.innerHTML = [0, 1, 2, 3].map(() => placeholderCard(current, segName)).join('');
     }
   }
 
   function render() {
     const current = CATALOG.find((c) => c.key === state.cat) || CATALOG[0];
-    state.seg = Math.min(state.seg, current.segs.length - 1);
-    const segName = current.segs[state.seg];
+    const hasSegs = current.segs.length > 0;
+    state.seg = hasSegs ? Math.min(state.seg, current.segs.length - 1) : 0;
+    const segName = hasSegs ? current.segs[state.seg] : '';
     renderTabs();
     renderSegments(current);
+    const segRow = chipsEl.closest('.segments-row');
+    if (segRow) segRow.style.display = hasSegs ? '' : 'none';
     renderVideos(current, segName);
   }
 
