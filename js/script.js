@@ -11,6 +11,8 @@
   //   youtube:  o ID do vídeo (o pedaço depois de /shorts/ , v= ou youtu.be/)
   // ===================================================================
   const VIDEOS = [
+    // Institucional
+    { aba: 'institucionais', segmento: 'Institucional', titulo: 'Institucional', youtube: 'JMmQJ38IjqY', formato: 'h' },
     // Profissionais
     { aba: 'liberais', segmento: 'Advogados', titulo: 'Advogados', youtube: 'aui4-NVT76Y' },
     { aba: 'liberais', segmento: 'Advogados', titulo: 'Advogados', youtube: 'DeKOy6rSefE' },
@@ -25,7 +27,10 @@
     { aba: 'locais', segmento: 'Carros', titulo: 'Carros', youtube: 'Gf21ALUxn-Y' },
     { aba: 'locais', segmento: 'Comida', titulo: 'Comida', youtube: 'xFPJvXiKxVw' },
     // Publicidade
+    { aba: 'publicidade', segmento: 'Campanhas', titulo: 'Campanha', youtube: 'MLLgeWcJ2cY', formato: 'h' },
     { aba: 'publicidade', segmento: 'Lançamentos', titulo: 'Lançamentos', youtube: '7gb9QB9J0sg' },
+    // Anúncios
+    { aba: 'anuncios', segmento: 'YouTube', titulo: 'YouTube', youtube: 'PAMufCP9Xow', formato: 'h' },
     // Eventos
     { aba: 'eventos', segmento: 'Formatura', titulo: 'Formatura', youtube: '1MPFBOLmo9U', formato: 'h' },
   ];
@@ -63,6 +68,7 @@
     { key: 'institucionais', label: 'Institucional', c1: '#24272f', c2: '#0d0e12', segs: [] },
     { key: 'locais', label: 'Negócios locais', c1: '#262a30', c2: '#0e1013', segs: ['Carros', 'Comida', 'Hospital veterinário', 'Ótica'] },
     { key: 'publicidade', label: 'Publicidade', c1: '#2b2531', c2: '#100d14', segs: ['Campanhas', 'Lançamentos', 'Promoções'] },
+    { key: 'anuncios', label: 'Anúncios', c1: '#22262f', c2: '#0c0f13', segs: ['Meta', 'YouTube'] },
     { key: 'liberais', label: 'Profissionais', c1: '#23262f', c2: '#0d0f13', segs: ['Advogados', 'Estética', 'Área da saúde', 'Psicologia', 'Influenciadores'] },
     { key: 'eventos', label: 'Eventos', c1: '#2c2822', c2: '#12100b', segs: ['Corporativo', 'Social', 'Festivais', 'Formatura'] },
     { key: 'formatos', label: 'Formatos de edição', c1: '#25242f', c2: '#0d0d13', segs: ['Reels', 'Cortes', 'Motion'] },
