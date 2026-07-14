@@ -26,6 +26,10 @@
     { aba: 'locais', segmento: 'Carros', titulo: 'Carros', youtube: 'W-tE0Y60A4I' },
     { aba: 'locais', segmento: 'Carros', titulo: 'Carros', youtube: 'Gf21ALUxn-Y' },
     { aba: 'locais', segmento: 'Comida', titulo: 'Comida', youtube: 'xFPJvXiKxVw' },
+    { aba: 'locais', segmento: 'Comida', titulo: 'Comida', youtube: 'xnCnbg1obec' },
+    { aba: 'locais', segmento: 'Hospital veterinário', titulo: 'Hospital veterinário', youtube: 'H-eZdLD7EPM' },
+    { aba: 'locais', segmento: 'Hospital veterinário', titulo: 'Hospital veterinário', youtube: 'aHZvvq-2x1M' },
+    { aba: 'locais', segmento: 'Hospital veterinário', titulo: 'Hospital veterinário', youtube: 'YAwGUKzq3yc' },
     // Publicidade
     { aba: 'publicidade', segmento: 'Campanhas', titulo: 'Campanha', youtube: 'MLLgeWcJ2cY', formato: 'h' },
     { aba: 'publicidade', segmento: 'Lançamentos', titulo: 'Lançamentos', youtube: '7gb9QB9J0sg' },
