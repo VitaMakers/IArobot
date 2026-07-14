@@ -91,6 +91,10 @@
     .video-modal-close{position:absolute;top:10px;right:10px;z-index:2;width:40px;height:40px;border-radius:50%;border:none;background:rgba(255,255,255,.95);color:#0a0a0a;font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35)}
     .video-card--h .video-cover{aspect-ratio:16/9}
     .video-modal-frame.is-h{aspect-ratio:16/9;height:auto;width:min(94vw,940px)}
+    .reel-modal-label{font-size:22px !important;color:#fff !important;letter-spacing:.18em}
+    .vc-reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;will-change:opacity,transform}
+    .vc-reveal--in{opacity:1;transform:none}
+    @media (prefers-reduced-motion:reduce){.vc-reveal{opacity:1 !important;transform:none !important;transition:none}}
     .brands-strip .vc-track{gap:24px;padding-left:24px}
     .brand-logo{display:inline-flex;align-items:center;justify-content:center;height:72px;width:150px;padding:0 22px;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);flex:0 0 auto}
     .brand-logo img{max-height:46px;max-width:118px;width:auto;height:auto;object-fit:contain;display:block}
@@ -145,6 +149,39 @@
         a.href = INSTAGRAM; a.target = '_blank'; a.rel = 'noopener noreferrer';
       }
     });
+  }
+
+  // Mostra "EM BREVE" no showreel enquanto não há vídeo.
+  function applyShowreelComingSoon() {
+    const dur = document.querySelector('.showreel-duration');
+    if (dur) dur.textContent = 'EM BREVE';
+    const label = document.querySelector('.reel-modal-label');
+    if (label) label.textContent = 'EM BREVE';
+    const hint = document.querySelector('.reel-modal-hint');
+    if (hint) hint.textContent = 'Nosso showreel está chegando. Volte em breve!';
+  }
+
+  // Aparição suave ao rolar (scroll reveal). Só ativa se o navegador suportar
+  // IntersectionObserver; senão, não mexe (conteúdo aparece normal).
+  function applyScrollReveal() {
+    if (!('IntersectionObserver' in window)) return;
+    const targets = [];
+    document.querySelectorAll('.hero-copy > *').forEach((el, i) => {
+      el.style.transitionDelay = (i * 0.07) + 's';
+      targets.push(el);
+    });
+    ['.hero-visual', '.brands-strip', '.portfolio-inner', '.contact-inner', '.footer-inner']
+      .forEach((sel) => { const el = document.querySelector(sel); if (el) targets.push(el); });
+    if (!targets.length) return;
+    targets.forEach((el) => el.classList.add('vc-reveal'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('vc-reveal--in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    targets.forEach((el) => io.observe(el));
+    // Rede de segurança: se algo não disparar, revela tudo depois de 2.5s.
+    setTimeout(() => targets.forEach((el) => el.classList.add('vc-reveal--in')), 2500);
   }
 
   const state = { cat: 'institucionais', seg: 0 };
@@ -238,6 +275,8 @@
 
   injectPlayer();
   applyContactLinks();
+  applyShowreelComingSoon();
+  applyScrollReveal();
 
   tabsEl.addEventListener('click', (e) => {
     const btn = e.target.closest('.tab');
