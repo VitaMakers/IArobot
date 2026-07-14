@@ -11,3 +11,5 @@ deployment:
     - if [ -f .htaccess ]; then /bin/cp -f .htaccess "$DEPLOYPATH"; fi
     - if [ -f robots.txt ]; then /bin/cp -f robots.txt "$DEPLOYPATH"; fi
     - if [ -f sitemap.xml ]; then /bin/cp -f sitemap.xml "$DEPLOYPATH"; fi
+    - if [ -f robots.txt ]; then /bin/cp -f robots.txt "$DEPLOYPATH"; fi
+    - if [ -f sitemap.xml ]; then /bin/cp -f sitemap.xml "$DEPLOYPATH"; fi
