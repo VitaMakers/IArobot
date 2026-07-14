@@ -56,6 +56,8 @@
     { src: 'assets/tubotecnica.png', alt: 'Tubotecnica' },
     { src: 'assets/luxdecor.png', alt: 'luxdecor' },
     { src: 'assets/sm.png', alt: 'SM' },
+    { src: 'assets/plx-digital.png', alt: 'PLX Digital' },
+    { src: 'assets/jota-company.png', alt: 'JOTA Company' },
   ];
   // ===================================================================
 
