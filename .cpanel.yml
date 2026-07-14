@@ -9,3 +9,5 @@ deployment:
     - /bin/cp -f js/*.js "$DEPLOYPATH/js/"
     - if [ -d assets ]; then /bin/cp -Rf assets "$DEPLOYPATH"; fi
     - if [ -f .htaccess ]; then /bin/cp -f .htaccess "$DEPLOYPATH"; fi
+    - if [ -f robots.txt ]; then /bin/cp -f robots.txt "$DEPLOYPATH"; fi
+    - if [ -f sitemap.xml ]; then /bin/cp -f sitemap.xml "$DEPLOYPATH"; fi
